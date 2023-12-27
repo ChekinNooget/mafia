@@ -1,0 +1,60 @@
+body {
+  margin: 0px;
+  font-family: "Roboto", sans-serif;
+}
+#full-wrap {
+  height: 100%;
+}
+.head {
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.user-wrap {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  margin-bottom: 20px;
+}
+.user {
+  width: 100%;
+  background-color: lightgrey;
+  border: black 1px solid;
+  width: 200px;
+  padding: 5px;
+  cursor: pointer;
+}
+.user-info-wrap {
+  display: flex;
+  margin: 10px;
+  height: 100%;
+}
+.user-info-wrap > div {
+  margin: 10px;
+  background-color: aqua;
+  width: 50%;
+}
+.user-info-left {
+  display: flex;
+  flex-direction: column;
+}
+.user-info-left > div {
+  background-color: lightblue;
+  border: black 1px solid;
+  padding: 5px;
+}
+.user-info-scumread-who-users {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.scumread-user {
+  width: 90%;
+  padding: 0px;
+  margin: 0px 5px;
+}
+.user-info-scumread-who-header {
+  font-weight: 600;
+  padding-left: 20px;
+}
