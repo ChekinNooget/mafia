@@ -40,6 +40,25 @@
               Remove Person
             </button>
           </div>
+          <div class="user-info-townread-who">
+            <!--townreading-->
+            <div class="user-info-townread-who-header">Is townreading:</div>
+            <div class="user-info-townread-who-users">
+              <!--Dropdowns & options generated through JS-->
+            </div>
+            <button
+              class="user-info-townread-who-add"
+              onclick="addTownreadWho()"
+            >
+              Add Person
+            </button>
+            <button
+              class="user-info-townread-who-remove"
+              onclick="removeTownreadWho()"
+            >
+              Remove Person
+            </button>
+          </div>
           <div class="user-info-scumread-by">
             <!--scumreadee-->
             <div class="user-info-scumread-who-header">Is scumread by:</div>
@@ -47,8 +66,25 @@
               <!--Text generated through JS-->
             </ul>
           </div>
+          <div class="user-info-townread-by">
+            <!--scumreadee-->
+            <div class="user-info-townread-who-header">Is townread by:</div>
+            <ul class="user-info-townread-by-users">
+              <!--Text generated through JS-->
+            </ul>
+          </div>
         </div>
-        <div class="user-info-right">awefawef</div>
+        <div class="user-info-right">
+          <div class="notes-wrap">
+            <textarea
+              class="notes-input"
+              type="text"
+              placeholder="Put your notes on this player here"
+              onchange="notesChange()"
+            >
+            </textarea>
+          </div>
+        </div>
       </div>
     </div>
   </body>
