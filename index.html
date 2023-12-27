@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mafia Game Tracker</title>
+    <link rel="stylesheet" href="index.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="trash" style="display: none"></div>
+    <div id="full-wrap">
+      <div class="head"><h1>aops mafia blah blah blah</h1></div>
+      <div class="user-wrap">
+        <!--List of users goes here-->
+      </div>
+      <div class="user-info-wrap">
+        <div class="user-info-left">
+          <div class="user-info-scumread-who">
+            <!--scumreading-->
+            <div class="user-info-scumread-who-header">Is scumreading:</div>
+            <div class="user-info-scumread-who-users">
+              <!--Dropdowns & options generated through JS-->
+            </div>
+            <button
+              class="user-info-scumread-who-add"
+              onclick="addScumreadWho()"
+            >
+              Add Person
+            </button>
+            <button
+              class="user-info-scumread-who-remove"
+              onclick="removeScumreadWho()"
+            >
+              Remove Person
+            </button>
+          </div>
+          <div class="user-info-scumread-by">
+            <!--scumreadee-->
+            <div class="user-info-scumread-who-header">Is scumread by:</div>
+            <ul class="user-info-scumread-by-users">
+              <!--Text generated through JS-->
+            </ul>
+          </div>
+        </div>
+        <div class="user-info-right">awefawef</div>
+      </div>
+    </div>
+  </body>
+  <script src="index.js"></script>
+</html>
