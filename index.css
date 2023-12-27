@@ -18,11 +18,11 @@ body {
 }
 .user {
   width: 100%;
-  background-color: lightgrey;
   border: black 1px solid;
   width: 200px;
   padding: 5px;
   cursor: pointer;
+  margin: 10px;
 }
 .user-info-wrap {
   display: flex;
@@ -43,18 +43,33 @@ body {
   border: black 1px solid;
   padding: 5px;
 }
-.user-info-scumread-who-users {
+.user-info-scumread-who-users,
+.user-info-townread-who-users {
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
-.scumread-user {
+.user-info-scumread-dropdown,
+.user-info-townread-dropdown {
+  border: 0px;
+}
+.scumread-user,
+.townread-user {
   width: 90%;
   padding: 0px;
   margin: 0px 5px;
 }
-.user-info-scumread-who-header {
+.user-info-scumread-who-header,
+.user-info-townread-who-header {
   font-weight: 600;
   padding-left: 20px;
+}
+.notes-input {
+  font-family: "Roboto", sans-serif;
+  width: calc(100% - 40px);
+  height: 400px;
+  margin: 20px;
+  border: 0px;
+  padding: 0px;
 }
