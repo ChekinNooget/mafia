@@ -12,17 +12,18 @@ body {
   align-items: center;
 }
 .user-wrap {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  display: flex;
   margin-bottom: 20px;
+  flex-wrap: wrap;
 }
 .user {
+  /*tried to make so the hover doesn't flicker when changing from users*/
   width: 100%;
-  border: black 1px solid;
+  border: rgba(0, 0, 0, 0.5) 10px solid;
   width: 200px;
-  padding: 5px;
+  padding: 15px;
   cursor: pointer;
-  margin: 10px;
+  margin: 0px;
 }
 .user-info-wrap {
   display: flex;
@@ -65,11 +66,27 @@ body {
   font-weight: 600;
   padding-left: 20px;
 }
-.notes-input {
+.notes-input,
+.role-input {
   font-family: "Roboto", sans-serif;
   width: calc(100% - 40px);
-  height: 400px;
   margin: 20px;
   border: 0px;
   padding: 0px;
+}
+.role-info,
+.notes-info {
+  margin: 20px 0px 0px 20px;
+}
+.notes-input {
+  height: 400px;
+}
+.role-wrap {
+  display: flex;
+  align-items: center;
+}
+.role-input {
+  height: 2rem;
+  font-size: 1rem;
+  margin-bottom: 0;
 }
