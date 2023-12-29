@@ -21,6 +21,7 @@ notes: [
   user: [
     role: "awef"
     notes: "awef"
+    align: "awef"
   ]
   user[
     etc
@@ -77,7 +78,7 @@ if (localStorage.getItem("notes") != null) {
 } else {
   notesData = [];
   for (let i = 0; i < peopleList.length; i++) {
-    notesData.push(["", ""]);
+    notesData.push(["", "", ""]);
   }
 }
 
@@ -90,9 +91,16 @@ for (let i = 0; i < peopleList.length; i++) {
   }
   temp =
     temp +
-    `<img src="https://avatar.artofproblemsolving.com/avatar_${idList[i]}.${filetypeList[i]}" class="user" onclick="clickUser('${peopleList[i]}')" onmouseover="hoverUser('${peopleList[i]}')" onmouseout="unHoverUser('${peopleList[i]}')"/>`;
+    `<img src="https://avatar.artofproblemsolving.com/avatar_${idList[i]}.${
+      filetypeList[i]
+    }" class="user ${peopleList[i].toLowerCase()}" onclick="clickUser('${
+      peopleList[i]
+    }')" onmouseover="hoverUser('${peopleList[i]}')" onmouseout="unHoverUser('${
+      peopleList[i]
+    }')"/>`;
 }
 userWrap.innerHTML = temp;
+document.querySelector(".align-dropdown").value = "none";
 renderUserData(peopleList[tempCurrentlyLoadedUser]);
 
 function userlistChange() {
@@ -213,15 +221,64 @@ function renderUserData(user) {
     notesData[tempCurrentlyLoadedUser][0];
   document.querySelector(".notes-input").value =
     notesData[tempCurrentlyLoadedUser][1];
+  document.querySelector(".align-dropdown").value =
+    notesData[tempCurrentlyLoadedUser][2];
   var userButtons = document.querySelectorAll(".user");
+
+  //background colorssss
+  //not selected
   for (let i = 0; i < userButtons.length; i++) {
-    userButtons[i].style.backgroundColor = "lightgrey";
+    if (notesData[i][2] == "town") {
+      userButtons[i].style.backgroundColor = "#70f567";
+    } else if (notesData[i][2] == "mafia") {
+      userButtons[i].style.backgroundColor = "#ff8f8f";
+    } else if (notesData[i][2] == "third") {
+      userButtons[i].style.backgroundColor = "#ff9efc";
+    } else if (notesData[i][2] == "other") {
+      userButtons[i].style.backgroundColor = "#b4a3ff";
+    } else {
+      userButtons[i].style.backgroundColor = "#bdbdbd";
+    }
   }
-  userButtons[tempCurrentlyLoadedUser].style.backgroundColor = "grey";
+  //hovered
+  if (notesData[tempCurrentlyLoadedUser][2] == "town") {
+    userButtons[tempCurrentlyLoadedUser].style.backgroundColor = "#34de28";
+  } else if (notesData[tempCurrentlyLoadedUser][2] == "mafia") {
+    userButtons[tempCurrentlyLoadedUser].style.backgroundColor = "#ff4229";
+  } else if (notesData[tempCurrentlyLoadedUser][2] == "third") {
+    userButtons[tempCurrentlyLoadedUser].style.backgroundColor = "#cf00c4";
+  } else if (notesData[tempCurrentlyLoadedUser][2] == "other") {
+    userButtons[tempCurrentlyLoadedUser].style.backgroundColor = "#4e26ff";
+  } else {
+    userButtons[tempCurrentlyLoadedUser].style.backgroundColor = "#777777";
+  }
+  //selected
+  if (notesData[currentlyLoadedUser][2] == "town") {
+    userButtons[currentlyLoadedUser].style.backgroundColor = "#00750c";
+  } else if (notesData[currentlyLoadedUser][2] == "mafia") {
+    userButtons[currentlyLoadedUser].style.backgroundColor = "#b51500";
+  } else if (notesData[currentlyLoadedUser][2] == "third") {
+    userButtons[currentlyLoadedUser].style.backgroundColor = "#570054";
+  } else if (notesData[currentlyLoadedUser][2] == "other") {
+    userButtons[currentlyLoadedUser].style.backgroundColor = "#14006e";
+  } else {
+    userButtons[currentlyLoadedUser].style.backgroundColor = "#454545";
+  }
+
   generateScumreadBy();
   generateTownreadBy();
   renderNamesInDropdown();
 }
+/*:root {
+  --none: #bdbdbd;
+  --none-select: #454545;
+  --town: #d0f07a;
+  --town-select: #00750c;
+  --scum: #ff8f8f;
+  --scum-select: #8a0000;
+  --third: #ff9efc;
+  --third-select: #570054;
+} */
 
 function clickUser(user) {
   currentlyLoadedUser = peopleList.indexOf(user);
@@ -300,5 +357,8 @@ function notesChange() {
     document.querySelector(".role-input").value;
   notesData[tempCurrentlyLoadedUser][1] =
     document.querySelector(".notes-input").value;
+  notesData[tempCurrentlyLoadedUser][2] =
+    document.querySelector(".align-dropdown").value;
   localStorage.setItem("notes", JSON.stringify(notesData));
+  renderUserData();
 }
