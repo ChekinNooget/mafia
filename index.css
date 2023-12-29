@@ -18,7 +18,6 @@ body {
 }
 .user {
   /*tried to make so the hover doesn't flicker when changing from users*/
-  width: 100%;
   border: rgba(0, 0, 0, 0.5) 10px solid;
   width: 200px;
   padding: 15px;
@@ -81,7 +80,8 @@ body {
 .notes-input {
   height: 400px;
 }
-.role-wrap {
+.role-wrap,
+.align-wrap {
   display: flex;
   align-items: center;
 }
@@ -89,4 +89,10 @@ body {
   height: 2rem;
   font-size: 1rem;
   margin-bottom: 0;
+}
+.align-wrap {
+  margin: 20px 0px 0px 20px;
+}
+.align-dropdown {
+  margin-left: 20px;
 }
