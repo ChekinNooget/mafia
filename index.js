@@ -22,9 +22,14 @@ notes: [
     role: "awef"
     notes: "awef"
     align: "awef"
+    alive: true
   ]
   user[
     etc
+  ]
+  ....
+  game info: [
+
   ]
 ]*/
 var peopleList = [];
@@ -69,7 +74,7 @@ if (localStorage.getItem("scumreads") != null) {
   data = JSON.parse(localStorage.getItem("scumreads"));
 } else {
   data = [];
-  for (let i = 0; i < peopleList.length; i++) {
+  for (let i = 0; i < peopleList.length + 1; i++) {
     data[i] = [[], []];
   }
 }
@@ -78,8 +83,9 @@ if (localStorage.getItem("notes") != null) {
 } else {
   notesData = [];
   for (let i = 0; i < peopleList.length; i++) {
-    notesData.push(["", "", ""]);
+    notesData.push(["", "", "", true]);
   }
+  notesData.push("");
 }
 
 var temp = "";
@@ -91,9 +97,11 @@ for (let i = 0; i < peopleList.length; i++) {
   }
   temp =
     temp +
-    `<img src="https://avatar.artofproblemsolving.com/avatar_${idList[i]}.${
-      filetypeList[i]
-    }" class="user ${peopleList[i].toLowerCase()}" onclick="clickUser('${
+    `<img style="background-image: url(https://avatar.artofproblemsolving.com/avatar_${
+      idList[i]
+    }.${filetypeList[i]})" class="user ${peopleList[
+      i
+    ].toLowerCase()}" onclick="clickUser('${
       peopleList[i]
     }')" onmouseover="hoverUser('${peopleList[i]}')" onmouseout="unHoverUser('${
       peopleList[i]
@@ -101,6 +109,8 @@ for (let i = 0; i < peopleList.length; i++) {
 }
 userWrap.innerHTML = temp;
 document.querySelector(".align-dropdown").value = "none";
+document.querySelector(".game-info-textarea").value =
+  notesData[notesData.length - 1];
 renderUserData(peopleList[tempCurrentlyLoadedUser]);
 
 function userlistChange() {
@@ -221,10 +231,31 @@ function renderUserData(user) {
     notesData[tempCurrentlyLoadedUser][0];
   document.querySelector(".notes-input").value =
     notesData[tempCurrentlyLoadedUser][1];
-  document.querySelector(".align-dropdown").value =
-    notesData[tempCurrentlyLoadedUser][2];
-  var userButtons = document.querySelectorAll(".user");
+  if (notesData[tempCurrentlyLoadedUser][2] != "") {
+    document.querySelector(".align-dropdown").value =
+      notesData[tempCurrentlyLoadedUser][2];
+  } else {
+    document.querySelector(".align-dropdown").value = "none";
+  }
 
+  document.querySelector(".alive-check").checked =
+    notesData[tempCurrentlyLoadedUser][3];
+
+  for (let i = 0; i < notesData.length - 1; i++) {
+    var temp = document.querySelector(`.${peopleList[i].toLowerCase()}`);
+    if (notesData[i][3] == false) {
+      temp.setAttribute("src", "cross.png");
+      temp.style.opacity = "0.5";
+    } else {
+      temp.setAttribute(
+        "src",
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+      );
+      temp.style.opacity = "1";
+    }
+  }
+
+  var userButtons = document.querySelectorAll(".user");
   //background colorssss
   //not selected
   for (let i = 0; i < userButtons.length; i++) {
@@ -359,6 +390,13 @@ function notesChange() {
     document.querySelector(".notes-input").value;
   notesData[tempCurrentlyLoadedUser][2] =
     document.querySelector(".align-dropdown").value;
+  notesData[tempCurrentlyLoadedUser][3] =
+    document.querySelector(".alive-check").checked;
+  document.querySelector(".alive-check").checked =
+    notesData[tempCurrentlyLoadedUser][3];
+  notesData[notesData.length - 1] = document.querySelector(
+    ".game-info-textarea"
+  ).value;
   localStorage.setItem("notes", JSON.stringify(notesData));
   renderUserData();
 }
