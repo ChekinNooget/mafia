@@ -1,0 +1,78 @@
+.userlist-modal {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.4rem;
+  width: 450px;
+  padding: 1.3rem;
+  min-height: 250px;
+  position: absolute;
+  z-index: 2;
+  top: 20%;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 15px;
+
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  /* bring your own prefixes */
+  transform: translate(-50%, -50%);
+}
+
+.userlist-header {
+  padding-right: 50px;
+}
+
+.userlist-textarea {
+  height: 180px;
+  font-family: "Roboto", sans-serif;
+  font-size: 1.1rem;
+}
+
+button {
+  cursor: pointer;
+}
+
+.btn-open {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: darkblue;
+  color: white;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 2rem;
+  width: 50px;
+  height: 50px;
+  border-radius: 25px;
+  padding-top: 0px;
+}
+
+.btn-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: #eee;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  padding: 2px 0px 0px 2px;
+  font-size: 1.5rem;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(3px);
+  z-index: 1;
+}
+
+.hidden {
+  display: none;
+}
