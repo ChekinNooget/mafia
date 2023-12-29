@@ -3,7 +3,7 @@
         scumreadwho: [
             awef, awef, awef
         ]
-        scumreadby:[
+        townreadwho:[
             awef, awef, awef
         ]
     ]
@@ -11,7 +11,7 @@
         scumreadwho: [
             awef, awef, awef
         ]
-        scumreadby:[
+        townreadwho:[
             awef, awef, awef
         ]
     ]
@@ -23,7 +23,9 @@ var peopleList = [
   "lucaswujc",
   "Aminecraftbear",
 ];
+var idList = ["501245", "532454", "519740", "554808", "977249"];
 var currentlyLoadedUser = 0;
+var hoverCurrentlyLoadedUser = 1434; //probably error if 1434 users but i doubt that'll ever happen
 var data;
 var notesData;
 if (localStorage.getItem("scumreads") != null) {
@@ -39,7 +41,7 @@ if (localStorage.getItem("notes") != null) {
 } else {
   notesData = [];
   for (let i = 0; i < peopleList.length; i++) {
-    notesData.push("");
+    notesData.push(["", ""]);
   }
 }
 var temp = "";
@@ -48,10 +50,10 @@ var userWrap = document.querySelector(".user-wrap");
 for (let i = 0; i < peopleList.length; i++) {
   temp =
     temp +
-    `<div class="user" onclick="clickUser('${peopleList[i]}')">${peopleList[i]}</div>`;
+    `<img src="https://avatar.artofproblemsolving.com/avatar_${idList[i]}.png" class="user" onclick="clickUser('${peopleList[i]}')" onmouseover="hoverUser('${peopleList[i]}')" onmouseout="unHoverUser('${peopleList[i]}')"/>`;
 }
 userWrap.innerHTML = temp;
-clickUser(peopleList[currentlyLoadedUser]);
+renderUserData(peopleList[currentlyLoadedUser]);
 
 function addScumreadWho() {
   var scumreadUsers = document.querySelector(".user-info-scumread-who-users");
@@ -139,27 +141,53 @@ function changeDropdown(returnedChild, type) {
   renderNamesInDropdown();
 }
 
-function clickUser(user) {
-  currentlyLoadedUser = peopleList.indexOf(user);
+function renderUserData(user) {
+  var tempCurrentlyLoadedUser = 0;
+  if (hoverCurrentlyLoadedUser != 1434) {
+    tempCurrentlyLoadedUser = hoverCurrentlyLoadedUser;
+  } else {
+    tempCurrentlyLoadedUser = currentlyLoadedUser;
+  } //hover functionality
+
+  document.querySelector(".username").innerHTML =
+    peopleList[tempCurrentlyLoadedUser];
+
   var scumreadUsers = document.querySelector(".user-info-scumread-who-users");
   scumreadUsers.innerHTML = "";
-  for (let i = 0; i < data[currentlyLoadedUser][0].length; i++) {
+  for (let i = 0; i < data[tempCurrentlyLoadedUser][0].length; i++) {
     scumreadUsers.append(createScumDropdown());
   }
   var townreadUsers = document.querySelector(".user-info-townread-who-users");
   townreadUsers.innerHTML = "";
-  for (let i = 0; i < data[currentlyLoadedUser][1].length; i++) {
+  for (let i = 0; i < data[tempCurrentlyLoadedUser][1].length; i++) {
     townreadUsers.append(createTownDropdown());
   }
-  document.querySelector(".notes-input").value = notesData[currentlyLoadedUser];
+  document.querySelector(".role-input").value =
+    notesData[tempCurrentlyLoadedUser][0];
+  document.querySelector(".notes-input").value =
+    notesData[tempCurrentlyLoadedUser][1];
   var userButtons = document.querySelectorAll(".user");
   for (let i = 0; i < userButtons.length; i++) {
     userButtons[i].style.backgroundColor = "lightgrey";
   }
-  userButtons[currentlyLoadedUser].style.backgroundColor = "grey";
+  userButtons[tempCurrentlyLoadedUser].style.backgroundColor = "grey";
   generateScumreadBy();
   generateTownreadBy();
   renderNamesInDropdown();
+}
+
+function clickUser(user) {
+  currentlyLoadedUser = peopleList.indexOf(user);
+  renderUserData();
+}
+
+function hoverUser(user) {
+  hoverCurrentlyLoadedUser = peopleList.indexOf(user);
+  renderUserData();
+}
+function unHoverUser(user) {
+  hoverCurrentlyLoadedUser = 1434;
+  renderUserData();
 }
 
 function generateScumreadBy() {
@@ -222,6 +250,9 @@ function createTownDropdown() {
 /* NOTESSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS */
 
 function notesChange() {
-  notesData[currentlyLoadedUser] = document.querySelector(".notes-input").value;
+  notesData[currentlyLoadedUser][0] =
+    document.querySelector(".role-input").value;
+  notesData[currentlyLoadedUser][1] =
+    document.querySelector(".notes-input").value;
   localStorage.setItem("notes", JSON.stringify(notesData));
 }
