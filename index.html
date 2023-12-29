@@ -23,7 +23,13 @@
         reset button (refresh after)
       </button>
       <div class="user-wrap">
+        <!--so it just calls the png using -->
         <!--List of users goes here-->
+      </div>
+      <div class="user-info-main">
+        <div class="username">
+          <!--username generated through JS-->
+        </div>
       </div>
       <div class="user-info-wrap">
         <div class="user-info-left">
@@ -81,10 +87,19 @@
           </div>
         </div>
         <div class="user-info-right">
+          <div class="role-wrap">
+            <div class="role-info">Role:</div>
+            <input
+              type="text"
+              class="role-input"
+              placeholder="Role"
+              onchange="notesChange()"
+            />
+          </div>
           <div class="notes-wrap">
+            <div class="notes-info">Notes:</div>
             <textarea
               class="notes-input"
-              type="text"
               placeholder="Put your notes on this player here"
               onchange="notesChange()"
             >
