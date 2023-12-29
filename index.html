@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mafia Game Tracker</title>
     <link rel="stylesheet" href="index.css" />
+    <link rel="stylesheet" href="modal.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -13,15 +14,32 @@
     />
   </head>
   <body>
+    <div class="overlay hidden"></div>
     <div class="trash" style="display: none"></div>
-    <div id="full-wrap">
-      <div class="head"><h1>aops mafia blah blah blah</h1></div>
+    <!--userlist/modal-->
+    <section class="userlist-modal hidden">
+      <div class="userlist-header">
+        Edit playerlist here. Separate players with newlines, with a format of
+        [username] [userid] [png/jpg (optional, default png)]. Refreshes on
+        change! Click away from the textbox to save.<br /><br />Example:<br />fdas
+        144193 jpg<br />nsd08 421119
+      </div>
+      <textarea
+        onchange="userlistChange()"
+        class="userlist-textarea"
+        placeholder="Enter playerlist here"
+      ></textarea>
       <button
         class="reset"
-        onclick='localStorage.removeItem("scumreads"); localStorage.removeItem("notes")'
+        onclick='localStorage.removeItem("scumreads"); localStorage.removeItem("notes"); localStorage.removeItem("playerlist"); location.reload();'
       >
-        reset button (refresh after)
+        Reset ALL data
       </button>
+      <button class="btn-close">⨉</button>
+    </section>
+    <div id="full-wrap">
+      <div class="head"><h1>aops mafia blah blah blah</h1></div>
+      <button class="btn btn-open">⚙</button>
       <div class="user-wrap">
         <!--so it just calls the png using -->
         <!--List of users goes here-->
@@ -110,4 +128,5 @@
     </div>
   </body>
   <script src="index.js"></script>
+  <script src="modal.js"></script>
 </html>
