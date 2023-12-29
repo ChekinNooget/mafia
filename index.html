@@ -41,8 +41,8 @@
       <div class="head"><h1>aops mafia blah blah blah</h1></div>
       <button class="btn btn-open">⚙</button>
       <div class="user-wrap">
-        <!--so it just calls the png using -->
-        <!--List of users goes here-->
+        <img src="cross.png" class="cross" />
+        <!--so it just calls the png using a script-->
       </div>
       <div class="user-info-main">
         <div class="username">
@@ -105,6 +105,14 @@
           </div>
         </div>
         <div class="user-info-right">
+          <div class="alive-wrap">
+            <div class="alive-info">Alive?</div>
+            <input
+              type="checkbox"
+              class="alive-check"
+              onchange="notesChange()"
+            />
+          </div>
           <div class="align-wrap">
             <div class="align-info">Alignment:</div>
             <select class="align-dropdown" onchange="notesChange()">
@@ -129,10 +137,19 @@
             <textarea
               class="notes-input"
               placeholder="Put your notes on this player here"
-              onchange="notesChange()"
+              onkeyup="notesChange()"
             >
             </textarea>
           </div>
+        </div>
+      </div>
+      <div class="game-info-wrap">
+        <div class="game-info-header">
+          <textarea
+            class="game-info-textarea"
+            placeholder="Put your game notes here"
+            onkeyup="notesChange()"
+          ></textarea>
         </div>
       </div>
     </div>
