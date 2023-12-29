@@ -15,19 +15,55 @@
             awef, awef, awef
         ]
     ]
-] */
-var peopleList = [
-  "aayr",
-  "Technodoggo",
-  "aidan0626",
-  "lucaswujc",
-  "Aminecraftbear",
-];
-var idList = ["501245", "532454", "519740", "554808", "977249"];
+] 
+
+notes: [
+  user: [
+    role: "awef"
+    notes: "awef"
+  ]
+  user[
+    etc
+  ]
+]*/
+var peopleList = [];
+var idList = [];
+var filetypeList = [];
 var currentlyLoadedUser = 0;
 var hoverCurrentlyLoadedUser = 1434; //probably error if 1434 users but i doubt that'll ever happen
+var tempCurrentlyLoadedUser = 0;
 var data;
 var notesData;
+if (localStorage.getItem("playerlist") != null) {
+  var temp = JSON.parse(localStorage.getItem("playerlist"));
+  temp = temp.split("\n");
+  for (let i = 0; i < temp.length; i++) {
+    peopleList.push(temp[i].split(" ")[0]);
+    idList.push(temp[i].split(" ")[1]);
+    filetypeList.push(temp[i].split(" ")[2]);
+  }
+} else {
+  peopleList = [
+    "aayr",
+    "Technodoggo",
+    "aidan0626",
+    "lucaswujc",
+    "Aminecraftbear",
+  ];
+  idList = ["501245", "532454", "519740", "554808", "977249"];
+  filetypeList = ["png", "png", "jpg", "jpg", "jpg"];
+  localStorage.setItem(
+    "playerlist",
+    JSON.stringify(`aayr 501245 png
+Technodoggo 532454 png
+aidan0626 519740 jpg
+lucaswujc 554808 jpg
+Aminecraftbear 977249 jpg`)
+  );
+}
+document.querySelector(".userlist-textarea").value = JSON.parse(
+  localStorage.getItem("playerlist")
+);
 if (localStorage.getItem("scumreads") != null) {
   data = JSON.parse(localStorage.getItem("scumreads"));
 } else {
@@ -44,27 +80,38 @@ if (localStorage.getItem("notes") != null) {
     notesData.push(["", ""]);
   }
 }
+
 var temp = "";
 temp = "";
 var userWrap = document.querySelector(".user-wrap");
 for (let i = 0; i < peopleList.length; i++) {
+  if (filetypeList[i] != "png" && filetypeList[i] != "jpg") {
+    filetypeList[i] = "png";
+  }
   temp =
     temp +
-    `<img src="https://avatar.artofproblemsolving.com/avatar_${idList[i]}.png" class="user" onclick="clickUser('${peopleList[i]}')" onmouseover="hoverUser('${peopleList[i]}')" onmouseout="unHoverUser('${peopleList[i]}')"/>`;
+    `<img src="https://avatar.artofproblemsolving.com/avatar_${idList[i]}.${filetypeList[i]}" class="user" onclick="clickUser('${peopleList[i]}')" onmouseover="hoverUser('${peopleList[i]}')" onmouseout="unHoverUser('${peopleList[i]}')"/>`;
 }
 userWrap.innerHTML = temp;
-renderUserData(peopleList[currentlyLoadedUser]);
+renderUserData(peopleList[tempCurrentlyLoadedUser]);
+
+function userlistChange() {
+  var userlistTextarea = document.querySelector(".userlist-textarea");
+  localStorage.setItem("playerlist", JSON.stringify(userlistTextarea.value));
+  location.reload();
+  //create div, split by space for user id, etc
+}
 
 function addScumreadWho() {
   var scumreadUsers = document.querySelector(".user-info-scumread-who-users");
   scumreadUsers.appendChild(createScumDropdown());
-  data[currentlyLoadedUser][0].push(peopleList[currentlyLoadedUser]);
+  data[tempCurrentlyLoadedUser][0].push(peopleList[tempCurrentlyLoadedUser]);
   renderNamesInDropdown();
 }
 function removeScumreadWho() {
   var scumreadUsers = document.querySelector(".user-info-scumread-who-users");
   scumreadUsers.removeChild(scumreadUsers.lastChild);
-  data[currentlyLoadedUser][0].pop();
+  data[tempCurrentlyLoadedUser][0].pop();
   renderNamesInDropdown();
 }
 function addTownreadWho() {
@@ -72,13 +119,13 @@ function addTownreadWho() {
     ".user-info-townread-who-users"
   );
   townChildreadUsers.appendChild(createTownDropdown());
-  data[currentlyLoadedUser][1].push(peopleList[currentlyLoadedUser]);
+  data[tempCurrentlyLoadedUser][1].push(peopleList[tempCurrentlyLoadedUser]);
   renderNamesInDropdown();
 }
 function removeTownreadWho() {
   var scumreadUsers = document.querySelector(".user-info-townread-who-users");
   scumreadUsers.removeChild(scumreadUsers.lastChild);
-  data[currentlyLoadedUser][1].pop();
+  data[tempCurrentlyLoadedUser][1].pop();
   renderNamesInDropdown();
 }
 function renderNamesInDropdown() {
@@ -116,7 +163,7 @@ function iterateDropdowns(dropdown, whatRead) {
     var temp = "";
     for (let j = 0; j < peopleList.length; j++) {
       var tempPeopleList = peopleList.filter(
-        (e) => e !== peopleList[currentlyLoadedUser]
+        (e) => e !== peopleList[tempCurrentlyLoadedUser]
       );
       tempPeopleList.unshift("Choose someone");
       if (data[currentlyLoadedUser][whatRead][i] == tempPeopleList[j]) {
@@ -135,14 +182,14 @@ function iterateDropdowns(dropdown, whatRead) {
 
 function changeDropdown(returnedChild, type) {
   var temp = document.querySelector(`.a${returnedChild.toString()}`);
-  data[currentlyLoadedUser][type][
+  data[tempCurrentlyLoadedUser][type][
     Array.prototype.indexOf.call(temp.parentElement.children, temp)
   ] = temp.value; //data equals position of child in parent's children
   renderNamesInDropdown();
 }
 
 function renderUserData(user) {
-  var tempCurrentlyLoadedUser = 0;
+  tempCurrentlyLoadedUser = 0;
   if (hoverCurrentlyLoadedUser != 1434) {
     tempCurrentlyLoadedUser = hoverCurrentlyLoadedUser;
   } else {
@@ -180,7 +227,6 @@ function clickUser(user) {
   currentlyLoadedUser = peopleList.indexOf(user);
   renderUserData();
 }
-
 function hoverUser(user) {
   hoverCurrentlyLoadedUser = peopleList.indexOf(user);
   renderUserData();
@@ -194,7 +240,7 @@ function generateScumreadBy() {
   var temp = "";
   for (let i = 0; i < data.length; i++) {
     for (let j = 0; j < data[i][0].length; j++) {
-      if (data[i][0].includes(peopleList[currentlyLoadedUser])) {
+      if (data[i][0].includes(peopleList[tempCurrentlyLoadedUser])) {
         temp =
           temp + `<li class="user-info-scumread-by-user">${peopleList[i]}</li>`;
       }
@@ -208,7 +254,7 @@ function generateTownreadBy() {
   var temp = "";
   for (let i = 0; i < data.length; i++) {
     for (let j = 0; j < data[i][1].length; j++) {
-      if (data[i][1].includes(peopleList[currentlyLoadedUser])) {
+      if (data[i][1].includes(peopleList[tempCurrentlyLoadedUser])) {
         temp =
           temp + `<li class="user-info-townread-by-user">${peopleList[i]}</li>`;
       }
@@ -250,9 +296,9 @@ function createTownDropdown() {
 /* NOTESSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS */
 
 function notesChange() {
-  notesData[currentlyLoadedUser][0] =
+  notesData[tempCurrentlyLoadedUser][0] =
     document.querySelector(".role-input").value;
-  notesData[currentlyLoadedUser][1] =
+  notesData[tempCurrentlyLoadedUser][1] =
     document.querySelector(".notes-input").value;
   localStorage.setItem("notes", JSON.stringify(notesData));
 }
