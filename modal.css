@@ -1,4 +1,10 @@
-.userlist-modal {
+@media (max-width: 537px) {
+  .userlist-modal {
+    width: 80vw !important;
+  }
+}
+.userlist-modal,
+.files-modal {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -19,13 +25,14 @@
   /* bring your own prefixes */
   transform: translate(-50%, -50%);
 }
-
-.userlist-header {
+.userlist-header,
+.files-header {
   padding-right: 50px;
 }
 
-.userlist-textarea {
-  height: 180px;
+.userlist-textarea,
+.import-textarea {
+  height: 160px;
   font-family: "Roboto", sans-serif;
   font-size: 1.1rem;
 }
@@ -34,10 +41,11 @@ button {
   cursor: pointer;
 }
 
-.btn-open {
+.data-open,
+.file-open {
   position: fixed;
   top: 20px;
-  right: 20px;
+  right: 80px;
   background-color: darkblue;
   color: white;
   font-family: "Times New Roman", Times, serif;
@@ -46,6 +54,11 @@ button {
   height: 50px;
   border-radius: 25px;
   padding-top: 0px;
+  z-index: 3;
+}
+
+.file-open {
+  right: 20px;
 }
 
 .btn-close {
