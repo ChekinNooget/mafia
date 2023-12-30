@@ -37,9 +37,24 @@
       </button>
       <button class="btn-close">⨉</button>
     </section>
+    <!--import/export modal-->
+    <section class="files-modal hidden">
+      <div class="files-header">
+        Import data here. Don't share this with someone if you don't want them
+        to see your notes!
+      </div>
+      <textarea
+        onchange="importChange()"
+        class="import-textarea"
+        placeholder="Paste text here. Page will refresh!"
+      ></textarea>
+      <button class="export" onclick="exportData()">Export current data</button>
+      <button class="btn-close">⨉</button>
+    </section>
     <div id="full-wrap">
       <div class="head"><h1>aops mafia blah blah blah</h1></div>
-      <button class="btn btn-open">⚙</button>
+      <button class="btn data-open">⚙</button>
+      <button class="btn file-open">📂</button>
       <div class="user-wrap">
         <img src="cross.png" class="cross" />
         <!--so it just calls the png using a script-->
