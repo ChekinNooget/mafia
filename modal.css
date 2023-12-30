@@ -1,5 +1,6 @@
 @media (max-width: 537px) {
-  .userlist-modal {
+  .userlist-modal,
+  .files-modal {
     width: 80vw !important;
   }
 }
