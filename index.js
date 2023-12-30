@@ -77,6 +77,7 @@ if (localStorage.getItem("scumreads") != null) {
   for (let i = 0; i < peopleList.length + 1; i++) {
     data[i] = [[], []];
   }
+  localStorage.setItem("scumreads", JSON.stringify(data));
 }
 if (localStorage.getItem("notes") != null) {
   notesData = JSON.parse(localStorage.getItem("notes"));
@@ -86,6 +87,7 @@ if (localStorage.getItem("notes") != null) {
     notesData.push(["", "", "", true]);
   }
   notesData.push("");
+  localStorage.setItem("notes", JSON.stringify(notesData));
 }
 
 var temp = "";
@@ -399,4 +401,31 @@ function notesChange() {
   ).value;
   localStorage.setItem("notes", JSON.stringify(notesData));
   renderUserData();
+}
+
+function importChange() {
+  if (
+    document.querySelector(".import-textarea").value.includes("-| awef 1434")
+  ) {
+    var temp = document
+      .querySelector(".import-textarea")
+      .value.split("-| awef 1434");
+    localStorage.setItem("playerlist", JSON.parse(temp[0]));
+    localStorage.setItem("scumreads", JSON.parse(temp[1]));
+    localStorage.setItem("notes", JSON.parse(temp[2]));
+    location.reload();
+  } else {
+    document.querySelector(".files-header").textContent =
+      "It looks like your data is invalid!";
+  }
+}
+function exportData() {
+  var temp = "";
+  temp =
+    temp + JSON.stringify(localStorage.getItem("playerlist")) + "-| awef 1434";
+  temp =
+    temp + JSON.stringify(localStorage.getItem("scumreads")) + "-| awef 1434";
+  temp = temp + JSON.stringify(localStorage.getItem("notes"));
+  var area = document.querySelector(".import-textarea");
+  area.value = temp;
 }
