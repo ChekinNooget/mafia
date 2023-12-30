@@ -22,10 +22,34 @@ body {
   justify-content: center;
   align-items: center;
 }
+.user-overall {
+  display: flex;
+  width: 100%;
+  border: 0px;
+  border-top: 5px;
+  border-style: solid;
+  border-color: black;
+}
+.userlist-full {
+  width: 25%;
+  padding: 10px;
+  border: 0px;
+  border-left: 5px;
+  border-style: solid;
+  border-color: black;
+}
+.userlist-user {
+  display: flex;
+}
+.userlist-user > div {
+  padding: 5px;
+}
 .user-wrap {
+  width: fit-content;
   display: flex;
   margin-bottom: 20px;
   flex-wrap: wrap;
+  border: 0px;
 }
 .user {
   border: rgba(0, 0, 0, 0.5) 5px solid;
@@ -39,7 +63,7 @@ body {
   background-repeat: no-repeat;
   background-position: center;
 }
-@media (max-width: 537px) {
+@media (max-width: 741px) {
   .user-wrap {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -64,6 +88,12 @@ body {
   }
   .user-info-main div {
     font-size: 2rem;
+  }
+  .userlist-full {
+    display: none;
+  }
+  .user-wrap {
+    justify-content: center;
   }
 }
 .user-info-wrap {
