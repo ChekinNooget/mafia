@@ -298,6 +298,39 @@ function renderUserData(user) {
     userButtons[currentlyLoadedUser].style.backgroundColor = "#454545";
   }
 
+  var fullUserlist = document.querySelector(".userlist-full");
+  var temp = "";
+  for (let i = 0; i < peopleList.length; i++) {
+    temp =
+      temp +
+      `<div class="userlist-user userlist-${peopleList[i].toLowerCase()}">
+            <div class="aops-font userlist-icon">w</div>
+            <div class="userlist-username">${peopleList[i]}</div>
+          </div>`;
+  }
+  fullUserlist.innerHTML = temp;
+  var userlistNames = document.querySelectorAll(".userlist-username");
+  var userlistIcons = document.querySelectorAll(".userlist-icon");
+  for (let i = 0; i < peopleList.length; i++) {
+    if (notesData[i][3] == false) {
+      userlistNames[i].style.textDecorationLine = "line-through";
+    }
+    if (notesData[i][2] == "town") {
+      userlistIcons[i].style.color = "#00750c";
+    } else if (notesData[i][2] == "mafia") {
+      userlistIcons[i].style.color = "#b51500";
+    } else if (notesData[i][2] == "third") {
+      userlistIcons[i].style.color = "#570054";
+    } else if (notesData[i][2] == "other") {
+      userlistIcons[i].style.color = "#14006e";
+    } else {
+      userlistIcons[i].style.color = "#454545";
+    }
+  }
+  document.querySelector(
+    `.userlist-${peopleList[currentlyLoadedUser].toLowerCase()}`
+  ).style.fontWeight = "900";
+
   generateScumreadBy();
   generateTownreadBy();
   renderNamesInDropdown();
