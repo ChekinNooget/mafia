@@ -1,3 +1,10 @@
+@font-face {
+  font-family: "AoPS";
+  src: url("new_aops.woff") format("woff");
+}
+.aops-font {
+  font-family: "AoPS" !important;
+}
 body {
   margin: 0px;
   font-family: "Roboto", sans-serif;
