@@ -218,7 +218,7 @@ function iterateDropdowns(dropdown, whatRead) {
         (e) => e !== peopleList[tempCurrentlyLoadedUser]
       );
       tempPeopleList.unshift("Choose someone");
-      if (data[currentlyLoadedUser][whatRead][i] == tempPeopleList[j]) {
+      if (data[tempCurrentlyLoadedUser][whatRead][i] == tempPeopleList[j]) {
         temp =
           temp +
           `<option value="${tempPeopleList[j]}" selected=true">${tempPeopleList[j]}</option>`;
