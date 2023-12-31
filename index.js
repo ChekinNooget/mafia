@@ -139,15 +139,7 @@ for (let i = 0; i < peopleList.length; i++) {
   }
   temp =
     temp +
-    `<img style="background-image: url(https://avatar.artofproblemsolving.com/avatar_${
-      idList[i]
-    }.${filetypeList[i]})" class="user ${peopleList[
-      i
-    ].toLowerCase()}" onclick="clickUser('${
-      peopleList[i]
-    }')" onmouseover="hoverUser('${peopleList[i]}')" onmouseout="unHoverUser('${
-      peopleList[i]
-    }')"/>`;
+    `<img style="background-image: url(https://avatar.artofproblemsolving.com/avatar_${idList[i]}.${filetypeList[i]})" class="user user${i}" onclick="clickUser('${peopleList[i]}')" onmouseover="hoverUser('${peopleList[i]}')" onmouseout="unHoverUser('${peopleList[i]}')"/>`;
 }
 userWrap.innerHTML = temp;
 document.querySelector(".align-dropdown").value = "none";
@@ -284,7 +276,7 @@ function renderUserData(user) {
     notesData[tempCurrentlyLoadedUser][3];
 
   for (let i = 0; i < notesData.length - 1; i++) {
-    var temp = document.querySelector(`.${peopleList[i].toLowerCase()}`);
+    var temp = document.querySelector(`.user${i}`);
     if (notesData[i][3] == false) {
       temp.setAttribute("src", "cross.png");
       temp.style.opacity = "0.5";
@@ -343,7 +335,7 @@ function renderUserData(user) {
   for (let i = 0; i < peopleList.length; i++) {
     temp =
       temp +
-      `<div class="userlist-user userlist-${peopleList[i].toLowerCase()}">
+      `<div class="userlist-user userlist-user${i}">
             <div class="aops-font userlist-icon">w</div>
             <div class="userlist-username" >${peopleList[i]}</div>
           </div>`;
@@ -371,7 +363,7 @@ function renderUserData(user) {
     }
   }
   document.querySelector(
-    `.userlist-${peopleList[currentlyLoadedUser].toLowerCase()}`
+    `.userlist-user${currentlyLoadedUser}`
   ).style.fontWeight = "900";
 
   generateScumreadBy();
