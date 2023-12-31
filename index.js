@@ -41,13 +41,41 @@ var tempCurrentlyLoadedUser = 0;
 var data;
 var notesData;
 if (localStorage.getItem("playerlist") != null) {
-  var temp = JSON.parse(localStorage.getItem("playerlist"));
-  temp = temp.split("\n");
-  for (let i = 0; i < temp.length; i++) {
-    peopleList.push(temp[i].split(" ")[0]);
-    idList.push(temp[i].split(" ")[1]);
-    filetypeList.push(temp[i].split(" ")[2]);
+  var temp = [];
+  var originalTemp = JSON.parse(localStorage.getItem("playerlist"));
+  originalTemp = originalTemp.trim().split("\n");
+  for (let i = 0; i < originalTemp.length; i++) {
+    if (originalTemp[i] != "" && originalTemp.indexOf(originalTemp[i]) == i) {
+      temp.push(originalTemp[i]);
+    }
   }
+  var newPlayerlistStorage = "";
+  for (let i = 0; i < temp.length; i++) {
+    newPlayerlistStorage = newPlayerlistStorage + temp[i] + "\n";
+  }
+  newPlayerlistStorage = newPlayerlistStorage.trim();
+  localStorage.setItem("playerlist", JSON.stringify(newPlayerlistStorage));
+  console.log(temp);
+  for (let i = 0; i < temp.length; i++) {
+    if (temp[i].includes(" ")) {
+      peopleList.push(temp[i].split(" ")[0]);
+      if (temp[i].split(" ").length >= 2) {
+        idList.push(temp[i].split(" ")[1]);
+      } else {
+        idList.push("0");
+      }
+      if (temp[i].split(" ").length >= 3) {
+        filetypeList.push(temp[i].split(" ")[2]);
+      } else {
+        filetypeList.push("png");
+      }
+    } else {
+      peopleList.push(temp[i]);
+      idList.push("0");
+      filetypeList.push("png");
+    }
+  }
+  console.log(peopleList, idList, filetypeList);
 } else {
   peopleList = [
     "aayr",
@@ -72,6 +100,10 @@ document.querySelector(".userlist-textarea").value = JSON.parse(
 );
 if (localStorage.getItem("scumreads") != null) {
   data = JSON.parse(localStorage.getItem("scumreads"));
+  var temp = peopleList.length - data.length;
+  for (let i = 0; i < temp; i++) {
+    data.push([[], []]);
+  }
 } else {
   data = [];
   for (let i = 0; i < peopleList.length + 1; i++) {
@@ -81,10 +113,18 @@ if (localStorage.getItem("scumreads") != null) {
 }
 if (localStorage.getItem("notes") != null) {
   notesData = JSON.parse(localStorage.getItem("notes"));
+  if (notesData.length < peopleList.length) {
+    var temp = peopleList.length - notesData.length;
+    notesData.pop();
+    for (let i = 0; i < temp + 1; i++) {
+      notesData.push(["", "", "none", true]);
+    }
+    notesData.push("");
+  }
 } else {
   notesData = [];
   for (let i = 0; i < peopleList.length; i++) {
-    notesData.push(["", "", "", true]);
+    notesData.push(["", "", "none", true]);
   }
   notesData.push("");
   localStorage.setItem("notes", JSON.stringify(notesData));
@@ -305,7 +345,7 @@ function renderUserData(user) {
       temp +
       `<div class="userlist-user userlist-${peopleList[i].toLowerCase()}">
             <div class="aops-font userlist-icon">w</div>
-            <div class="userlist-username">${peopleList[i]}</div>
+            <div class="userlist-username" >${peopleList[i]}</div>
           </div>`;
   }
   fullUserlist.innerHTML = temp;
@@ -325,6 +365,9 @@ function renderUserData(user) {
       userlistIcons[i].style.color = "#14006e";
     } else {
       userlistIcons[i].style.color = "#454545";
+    }
+    if (notesData[i][0] != "") {
+      userlistNames[i].title = notesData[i][0];
     }
   }
   document.querySelector(
