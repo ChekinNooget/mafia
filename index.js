@@ -99,19 +99,21 @@ document.querySelector(".userlist-textarea").value = JSON.parse(
 if (localStorage.getItem("scumreads") != null) {
   data = JSON.parse(localStorage.getItem("scumreads"));
   var temp = peopleList.length - data.length;
-  for (let i = 0; i < temp; i++) {
-    data.push([[], []]);
+  if (data.length < peopleList.length) {
+    for (let i = 0; i < temp; i++) {
+      data.push([[], []]);
+    }
   }
 } else {
   data = [];
-  for (let i = 0; i < peopleList.length + 1; i++) {
+  for (let i = 0; i < peopleList.length; i++) {
     data[i] = [[], []];
   }
   localStorage.setItem("scumreads", JSON.stringify(data));
 }
 if (localStorage.getItem("notes") != null) {
   notesData = JSON.parse(localStorage.getItem("notes"));
-  if (notesData.length < peopleList.length) {
+  if (notesData.length - 1 < peopleList.length) {
     var temp = peopleList.length - notesData.length;
     notesData.pop();
     for (let i = 0; i < temp + 1; i++) {
