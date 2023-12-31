@@ -55,7 +55,6 @@ if (localStorage.getItem("playerlist") != null) {
   }
   newPlayerlistStorage = newPlayerlistStorage.trim();
   localStorage.setItem("playerlist", JSON.stringify(newPlayerlistStorage));
-  console.log(temp);
   for (let i = 0; i < temp.length; i++) {
     if (temp[i].includes(" ")) {
       peopleList.push(temp[i].split(" ")[0]);
@@ -75,7 +74,6 @@ if (localStorage.getItem("playerlist") != null) {
       filetypeList.push("png");
     }
   }
-  console.log(peopleList, idList, filetypeList);
 } else {
   peopleList = [
     "aayr",
